@@ -1,0 +1,37 @@
+@charset "utf-8";
+body {
+	color: #333;
+	font-family: "游ゴシック体", YuGothic, “游ゴシック bold”, YuGothic Medium,
+	"游ゴシック", "Yu Gothic", “メイリオ“, Meiryo, “Helvetica Neue”, Helvetica,
+	Arial, sans-serif;
+	font-size: 1.6em;
+	font-weight: 500;
+	height: 100%;
+	line-height: 27px;
+	overflow-x: hidden;
+	-webkit-text-size-adjust: 100%;
+	width: 100%;
+}
+
+.font_en {
+	font-family: "Montserrat";
+}
+
+@font-face {
+	font-family: "Material Icons";
+	font-style: normal;
+	font-weight: 400;
+	src: url(https://fonts.gstatic.com/s/materialicons/v90/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2) format("woff2");
+}
+
+.material-icons {
+	color: rgb(194, 44, 70);
+	display: inline-block;
+	font-family: "Material Icons";
+	font-size: 24px;
+	font-style: normal;
+	font-weight: normal;
+	letter-spacing: normal;
+	line-height: 1;
+	text-transform: none;
+}
