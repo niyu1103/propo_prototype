@@ -5,61 +5,36 @@ import './assets/mp3/20210424_105237_279_radiohistory_ep0517.mp3'
 function App() {
   const [audioBuffer, setAudioBuffer] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  // const [nowPlaying, setNowPlaying] = useState(null);
   const [playingSource, setPlayingSource] = useState(null);
-
-  const audioContext = useRef(null);
-  let ctx = audioContext.current;
+  let audioElement;
+  const ctx = new AudioContext();
 
   useEffect(() => {
-    ctx = new AudioContext();
-  }, []);
+    audioElement = document.getElementById('audio');
+    console.log(audioElement);
+    // Web Audio API内で使える形に変換
+    const track = ctx.createMediaElementSource(audioElement);
+    track.connect(ctx.destination);
+  }, [])
 
-  // 音源を取得しAudioBuffer形式に変換して返す関数
-  const setupSource = async () => {
-    const response = await fetch(
-      './assets/mp3/20210424_105237_279_radiohistory_ep0517.mp3'
-    );
 
-     console.log(response);
-    const arrayBuffer = await response.arrayBuffer(
 
-    );
-     console.log(arrayBuffer);
-    // Web Audio APIで使える形式に変換
-    setAudioBuffer(await ctx.decodeAudioData(arrayBuffer));
-     console.log(audioBuffer);
-  };
+  const handleClickPlay = (e) => {
+    if (ctx.state === "suspended") {
+      ctx.resume();
+    }
 
-  const play = (ctx, audioBuffer) => {
-    console.log(audioBuffer);
-    setPlayingSource(ctx.createBufferSource());
-    // 変換されたバッファーを音源として設定
-    playingSource.buffer = audioBuffer;
-    // 出力につなげる
-    playingSource.connect(ctx.destination);
-    playingSource.start();
-    setIsPlaying(true);
-  };
+    audioElement.play();
+  }
 
-  const handleClickPlay = async (e) => {
-    console.log(isPlaying);
-    if (isPlaying) return;
-    // if(ctx.state === 'suspended'){
-    //   ctx.resume();
-    // }
-    console.log('setupSource');
-    const playing = await setupSource();
-    console.log('playing');
-    play(ctx, playing);
-    console.log('Play');
-  };
+  // audioElementを一時停止する
+  const handleClickStop = (e) => {
+    audioElement.pause();
+  }
 
-  const handleClickStop = async (e) => {
-    console.log('stop'.isPlaying);
-    playingSource?.stop();
-    setIsPlaying(false);
-  };
+
+
+
 
   return (
     <div className='App'>
@@ -71,6 +46,7 @@ function App() {
             width='160'
             height='160'
           />
+
           <i
             id='play'
             className='material-icons'
@@ -88,6 +64,7 @@ function App() {
             pause_circle_outline
           </i>
         </div>
+        <audio id="audio" src="./assets/mp3/20210424_105237_279_radiohistory_ep0517.mp3"></audio>
         <div id='audio_desc'>
           <div className='ep-date'>2021.05.11</div>
           <div className='ep-title'>

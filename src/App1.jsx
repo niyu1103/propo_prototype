@@ -5,58 +5,73 @@ import './assets/mp3/20210424_105237_279_radiohistory_ep0517.mp3'
 function App() {
   const [audioBuffer, setAudioBuffer] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  // const [nowPlaying, setNowPlaying] = useState(null);
   const [playingSource, setPlayingSource] = useState(null);
 
-  // 再描画の影響を受けない不変なオブジェクト
   const audioContext = useRef(null);
+  let ctx = audioContext.current;
 
-  // 初期化
   useEffect(() => {
-    audioContext.current = new AudioContext();
-    console.log(audioContext);
-    var bufCache;
+    ctx = new AudioContext();
+  }, []);
 
-  // バッファの取得
-  var request = new XMLHttpRequest();
-  request.open('GET', './assets/mp3/20210424_105237_279_radiohistory_ep0517.mp3', true);
-
-  // arraybufferで取得
-  request.responseType = 'arraybuffer';
-
-  request.onload = function () {
-    // 受け取ったレスポンスを、AudioBufferに変換
-    audioContext.current.decodeAudioData(request.response, function (buffer) {
-      bufCache = buffer;
-    });
+ // イベントコールバック
+   const handleChangeFile = async (event) => {
+    const _file =  await fetch(
+      './assets/mp3/20210424_105237_279_radiohistory_ep0517.mp3'
+    );
+    // const _file =  event.target.files[0];
+    console.log(_file);
+     const _audioBuffer = await audioContext.current.decodeAudioData(
+      await _file.arrayBuffer()
+    );
+    console.log(_audioBuffer);
+    setAudioBuffer(_audioBuffer);
+     console.log(audioContext);
   };
-  request.send();
-  }, [])
 
+   const handleClickPlay = () => {
+    // 自動再生ブロックにより停止されたオーディオを再開させる
+    // if (audioContext.current.state === "suspended") {
+    //   audioContext.current.resume();
+    // }
 
+    // ソースノード生成 ＋ 音声を設定
+    const sourceNode = audioContext.current.createBufferSource();
+    sourceNode.buffer = audioBuffer;
 
-  // 略
+    // 出力先に接続
+    sourceNode.connect(audioContext.current.destination);
 
-  // 音を鳴らす
-  var source = audioContext.current.createBufferSource();
-  // 取得しておいたバッファを使う
-  source.buffer = bufCache;
-  source.connect(audioContext.current.destination);
+    // 再生発火
+    sourceNode.start();
+  };
 
+  // const handleClickPlay = async (e) => {
+  //   console.log(isPlaying);
+  //   if (isPlaying) return;
+  //   // if(ctx.state === 'suspended'){
+  //   //   ctx.resume();
+  //   // }
+  //   console.log('setupSource');
+  //   const playing = await setupSource();
+  //   console.log('playing');
+  //   play(ctx, playing);
+  //   console.log('Play');
+  // };
 
-
-  const handleClickPlay = () => {
-    source.start(audioContext.current.currentTime);
-  }
-  const handleClickStop = () => {
-    source.stop(audioContext.current.currentTime + source.buffer.duration);
-  }
+  const handleClickStop = async (e) => {
+    console.log('stop'.isPlaying);
+    playingSource?.stop();
+    setIsPlaying(false);
+  };
 
   return (
     <div className='App'>
       <div id='player' className='app'>
         <div id='audio_thumb'>
           <img
-            className='ep_img'
+            className='ep_img' onClick={handleChangeFile}
             src='https://storage.googleapis.com/propo-apollo.appspot.com/users/X4wgS1qpQSSvTW5FSTPgO9HyS8B2/channels/FEPdlmxIDrgN6wYk0EK0/images/radireki_thumbnail_280x280.jpg'
             width='160'
             height='160'
