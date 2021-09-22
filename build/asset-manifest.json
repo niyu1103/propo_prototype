@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/static/css/main.203bee82.chunk.css",
-    "main.js": "/static/js/main.ba9c00d4.chunk.js",
-    "main.js.map": "/static/js/main.ba9c00d4.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.62000460.js",
-    "runtime-main.js.map": "/static/js/runtime-main.62000460.js.map",
-    "static/js/2.503e0a13.chunk.js": "/static/js/2.503e0a13.chunk.js",
-    "static/js/2.503e0a13.chunk.js.map": "/static/js/2.503e0a13.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.203bee82.chunk.css.map": "/static/css/main.203bee82.chunk.css.map",
-    "static/js/2.503e0a13.chunk.js.LICENSE.txt": "/static/js/2.503e0a13.chunk.js.LICENSE.txt",
-    "static/media/20210424_105237_279_radiohistory_ep0517.b513b552.mp3": "/static/media/20210424_105237_279_radiohistory_ep0517.b513b552.mp3",
-    "static/media/20210430_113621_533_radiohistory_ep0518.ca72e8b5.mp3": "/static/media/20210430_113621_533_radiohistory_ep0518.ca72e8b5.mp3"
+    "main.css": "./static/css/main.203bee82.chunk.css",
+    "main.js": "./static/js/main.ba9c00d4.chunk.js",
+    "main.js.map": "./static/js/main.ba9c00d4.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.3776b316.js",
+    "runtime-main.js.map": "./static/js/runtime-main.3776b316.js.map",
+    "static/js/2.503e0a13.chunk.js": "./static/js/2.503e0a13.chunk.js",
+    "static/js/2.503e0a13.chunk.js.map": "./static/js/2.503e0a13.chunk.js.map",
+    "index.html": "./index.html",
+    "static/css/main.203bee82.chunk.css.map": "./static/css/main.203bee82.chunk.css.map",
+    "static/js/2.503e0a13.chunk.js.LICENSE.txt": "./static/js/2.503e0a13.chunk.js.LICENSE.txt",
+    "static/media/20210424_105237_279_radiohistory_ep0517.b513b552.mp3": "./static/media/20210424_105237_279_radiohistory_ep0517.b513b552.mp3",
+    "static/media/20210430_113621_533_radiohistory_ep0518.ca72e8b5.mp3": "./static/media/20210430_113621_533_radiohistory_ep0518.ca72e8b5.mp3"
   },
   "entrypoints": [
-    "static/js/runtime-main.62000460.js",
+    "static/js/runtime-main.3776b316.js",
     "static/js/2.503e0a13.chunk.js",
     "static/css/main.203bee82.chunk.css",
     "static/js/main.ba9c00d4.chunk.js"
