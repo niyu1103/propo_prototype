@@ -1,15 +1,18 @@
 import React, { memo, useState, useEffect, useRef } from 'react';
 import { AudioControls } from './AudioControls';
-// import { TimeControl } from './TimeControl';
 
-export const AudioPlayer = memo(({ tracks }) => {
+
+export const AudioPlayer = memo((props) => {
+  const {tracks,setTracks,trackIndex,setTrackIndex} =props;
+  console.log(tracks)
   // State
-  const [trackIndex, setTrackIndex] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
   // Destructure for conciseness
-  const { title, date, audioSrc, image, audioTime } = tracks[trackIndex];
+  const { title, date, audioSrc, image, audioTime } = tracks[0];
+  console.log(audioSrc);
+  console.log(trackIndex);
 
   // Refs
   const audioRef = useRef(new Audio(audioSrc));
@@ -40,6 +43,9 @@ export const AudioPlayer = memo(({ tracks }) => {
     intervalRef.current = setInterval(() => {
       if (audioRef.current.ended) {
         toNextTrack();
+        const newItems = [...tracks];
+        newItems.shift();
+        setTracks(newItems);
       } else {
         setTrackProgress(audioRef.current.currentTime);
       }
@@ -124,7 +130,7 @@ export const AudioPlayer = memo(({ tracks }) => {
       // Set the isReady ref as true for the next pass
       isReady.current = true;
     }
-  }, [trackIndex]);
+  }, [audioSrc]);
 
   useEffect(() => {
     // Pause and clean up on unmount
