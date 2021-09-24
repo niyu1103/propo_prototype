@@ -15,7 +15,7 @@ function App() {
   const { trackList } = useContext(TrackContext);
   console.log(trackList);
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Router />
       {trackList.length > 0 &&
         <AudioPlayerList />
