@@ -2,6 +2,14 @@
 
 /* CSS Document */
 
+#player {
+	background-color: #fff;
+	bottom: 0;
+	height: 160px;
+	position: fixed;
+	right: 40px;
+	z-index: 10;
+}
 
 #app {
 	background-color: #fff;

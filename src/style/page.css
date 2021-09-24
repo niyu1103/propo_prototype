@@ -1,0 +1,116 @@
+@charset "utf-8";
+
+/* CSS Document */
+
+.page {
+	margin: 0 auto;
+	padding: 30px 0;
+	width: 100%;
+}
+
+.playList {
+	padding: 30px 0 200px;
+}
+
+.page h2 {
+	text-align: center;
+}
+
+.page h3 {
+	font-family: "Montserrat";
+	font-size: 3.2rem;
+	letter-spacing: 1px;
+	line-height: 1;
+	margin: 15px 0 10px;
+	position: relative;
+}
+
+.mvContainer__box {
+	color: #333;
+	display: flex;
+	margin: 0 auto;
+	max-width: 1024px;
+	width: 100%;
+}
+
+.mvContainer__box2 {
+	color: #333;
+	margin: 0 auto;
+	max-width: 1024px;
+	width: 100%;
+}
+
+.episode-item {
+	background: #fff;
+	box-shadow: 0 2px 6px 0 rgb(0 0 0 / 30%);
+	margin: 0 0 10px;
+	padding: 10px;
+	position: relative;
+	width: calc((100% - 40px)/3);
+}
+
+.mvContainerSmall__box__desc {
+	align-items: flex-start;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	margin-left: 20px;
+	width: calc(100% - 300px - 40px);
+}
+
+.allEpisodes__content {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-bottom: 4px;
+	margin-top: 10px;
+	padding-bottom: 10px;
+}
+
+.arrow_article_btn {
+	background: #f9f9f9;
+	border: 1px solid #e0e0e0;
+	color: #c22c46;
+	display: block;
+	font-size: 1.4rem;
+	font-weight: bold;
+	height: 46px;
+	letter-spacing: 1px;
+	line-height: 46px;
+	margin: 20px 0;
+	position: relative;
+	text-align: center;
+	width: calc((100% - 10px)/3);
+}
+
+.mvAddBtn {
+	align-items: center;
+	background: #267ab6;
+	border: none;
+	border-radius: 20px;
+	color: #fff;
+	cursor: pointer;
+	display: flex;
+	font-weight: bold;
+	height: 40px;
+	justify-content: center;
+	margin-bottom: 24px;
+	transition: .4s;
+	width: 216px;
+}
+
+.mvDelBtn {
+	align-items: center;
+	background: #0d958e;
+	border: none;
+	border-radius: 20px;
+	color: #fff;
+	cursor: pointer;
+	font-weight: bold;
+	height: 40px;
+	justify-content: center;
+	margin-bottom: 24px;
+	margin-left: 20px;
+	transition: .4s;
+	width: 80px;
+}

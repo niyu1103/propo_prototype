@@ -1,16 +1,19 @@
-import React, { memo, useState, useEffect, useRef } from 'react';
+import React, { memo, useState, useEffect, useRef, useContext } from 'react';
 import { AudioControls } from './AudioControls';
+import {TrackContext} from "../providers/TrackProvider"
 
 
-export const AudioPlayer = memo((props) => {
-  const {tracks,setTracks,trackIndex,setTrackIndex} =props;
-  console.log(tracks)
+export const AudioPlayer = memo(() => {
+  // const {tracks,setTracks,trackIndex,setTrackIndex} =props;
+const { trackList, setTrackList, trackIndex, setTrackIndex } = useContext(TrackContext);
+
+  console.log(trackList)
   // State
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
 
   // Destructure for conciseness
-  const { title, date, audioSrc, image, audioTime } = tracks[0];
+  const { title, date, audioSrc, image, audioTime } = trackList[0];
   console.log(audioSrc);
   console.log(trackIndex);
 
@@ -43,9 +46,9 @@ export const AudioPlayer = memo((props) => {
     intervalRef.current = setInterval(() => {
       if (audioRef.current.ended) {
         toNextTrack();
-        const newItems = [...tracks];
+        const newItems = [...trackList];
         newItems.shift();
-        setTracks(newItems);
+        setTrackList(newItems);
       } else {
         setTrackProgress(audioRef.current.currentTime);
       }
@@ -54,14 +57,14 @@ export const AudioPlayer = memo((props) => {
 
   const toPrevTrack = () => {
     if (trackIndex - 1 < 0) {
-      setTrackIndex(tracks.length - 1);
+      setTrackIndex(trackList.length - 1);
     } else {
       setTrackIndex(trackIndex - 1);
     }
   };
 
   const toNextTrack = () => {
-    if (trackIndex < tracks.length - 1) {
+    if (trackIndex < trackList.length - 1) {
       setTrackIndex(trackIndex + 1);
     } else {
       setTrackIndex(0);
@@ -115,7 +118,7 @@ export const AudioPlayer = memo((props) => {
     }
   }, [isPlaying]);
 
-  // Handles cleanup and setup when changing tracks
+  // Handles cleanup and setup when changing trackList
   useEffect(() => {
     audioRef.current.pause();
 

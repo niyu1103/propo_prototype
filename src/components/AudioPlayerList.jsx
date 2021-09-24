@@ -1,30 +1,30 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useContext } from 'react';
+import { TrackContext } from '../providers/TrackProvider';
 
-export const AudioPlayerList = memo((props) => {
-  const { trackLists, deleteTrackList } = props;
+export const AudioPlayerList = memo(() => {
+  const { trackList, setTrackList } = useContext(TrackContext);
 
   const onClickDelete = (num) => {
-    const newItems = [...trackLists];
+    const newItems = [...trackList];
     newItems.splice(num, 1);
-    deleteTrackList(newItems);
+    setTrackList(newItems);
   };
 
   return (
-    <>
-      <div>
-        <h2>AudioPlayerList</h2>
+    <section className='page playList'>
+      <div className='mvContainer__box2'>
+        <h3>AudioPlayerList</h3>
         <ul>
-         {trackLists.map((trackList, index) => {
-             return (
-               <>
-                 <li key={trackList.id}>{trackList.title}</li>
-                 <button onClick={onClickDelete.bind(this, index)}>削除</button>
-               </>
-             );
+          {trackList.map((trackItem, index) => {
+            return (
+              <>
+                <li key={trackItem.id}>{trackItem.title}<button onClick={onClickDelete.bind(this, index)} className="mvDelBtn">削除</button></li>
+
+              </>
+            );
           })}
         </ul>
       </div>
-    </>
+    </section>
   );
 });
-
