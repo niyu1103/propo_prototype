@@ -5,12 +5,12 @@ import {TrackContext} from "../providers/TrackProvider"
 
 export const AudioPlayer = memo(() => {
   // const {tracks,setTracks,trackIndex,setTrackIndex} =props;
-const { trackList, setTrackList, trackIndex, setTrackIndex } = useContext(TrackContext);
+const { trackList, setTrackList, trackIndex, setTrackIndex,isPlaying, setIsPlaying,firstTimeReady, setFirstTimeReady } = useContext(TrackContext);
 
   console.log(trackList)
   // State
   const [trackProgress, setTrackProgress] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
+  // const [isPlaying, setIsPlaying] = useState(false);
 
   // Destructure for conciseness
   const { title, date, audioSrc, image, audioTime } = trackList[0];
@@ -21,7 +21,7 @@ const { trackList, setTrackList, trackIndex, setTrackIndex } = useContext(TrackC
   const audioRef = useRef(new Audio(audioSrc));
   const intervalRef = useRef();
   const isReady = useRef(false);
-  console.log(audioRef);
+  console.log("audioRef",audioRef);
 
   // Destructure for conciseness
   const { duration } = audioRef.current;
@@ -47,7 +47,7 @@ const { trackList, setTrackList, trackIndex, setTrackIndex } = useContext(TrackC
       if (audioRef.current.ended) {
         toNextTrack();
         const newItems = [...trackList];
-        newItems.shift();
+        newItems.shift(); //再生終了のものを削除
         setTrackList(newItems);
       } else {
         setTrackProgress(audioRef.current.currentTime);
@@ -75,6 +75,7 @@ const { trackList, setTrackList, trackIndex, setTrackIndex } = useContext(TrackC
     width: currentPercentage,
   };
 
+  //戻るボタン
   const onClickPlayBack = () => {
     clearInterval(intervalRef.current);
     audioRef.current.currentTime = audioRef.current.currentTime - 15;
@@ -82,6 +83,7 @@ const { trackList, setTrackList, trackIndex, setTrackIndex } = useContext(TrackC
     startTimer();
   };
 
+  //スキップボタン
   const onClickPlaySkip = () => {
     clearInterval(intervalRef.current);
     audioRef.current.currentTime = audioRef.current.currentTime + 30;
@@ -90,6 +92,7 @@ const { trackList, setTrackList, trackIndex, setTrackIndex } = useContext(TrackC
   };
   console.log(audioRef.current.currentTime);
 
+  //再生スピード
   const onClickSpeedCtrl = () => {
     const SPEED_NUM_ARY = [1.0, 1.3, 1.5, 2.0, 0.5, 0.7];
     let now_speed = audioRef.current.playbackRate;
@@ -121,19 +124,20 @@ const { trackList, setTrackList, trackIndex, setTrackIndex } = useContext(TrackC
   // Handles cleanup and setup when changing trackList
   useEffect(() => {
     audioRef.current.pause();
-
     audioRef.current = new Audio(audioSrc);
     setTrackProgress(audioRef.current.currentTime);
 
-    if (isReady.current) {
+    if (isReady.current || firstTimeReady) {
+
       audioRef.current.play();
       setIsPlaying(true);
       startTimer();
     } else {
+
       // Set the isReady ref as true for the next pass
       isReady.current = true;
     }
-  }, [audioSrc]);
+  }, [audioSrc,trackIndex]);
 
   useEffect(() => {
     // Pause and clean up on unmount
