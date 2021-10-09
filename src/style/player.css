@@ -81,6 +81,13 @@
 	text-align: center;
 }
 
+#timebar-range-num {
+	color: #fff;
+	font-size: 9px;
+	position: absolute;
+	top: 2px;
+}
+
 #time_disp {
 	color: #666;
 	font-size: 15px;
@@ -130,13 +137,56 @@
 .fa, .fas {
 	font-size: 20px;
 }
+.control_area {
+	display: flex;
+	justify-content: space-between;
+}
+
+.volume_btn {
+	appearance: none;
+	border: none;
+	border-radius: 12px;
+	cursor: pointer;
+	font-size: 9px;
+	margin: 0 4px;
+	padding: 4px 6px;
+	webkit-appearance: none;
+}
 
 .time_control_area {
-	float: right;
 	margin: 0 5px 0 0;
 }
 
+#timebar-range {
+	line-height: 12px;
+	position: relative;
+}
 
+input[type=range] {
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: lightgray;
+	border-radius: 8px;
+	cursor: pointer;
+	height: 12px;
+	margin-bottom: 10px;
+	transition: background .2s ease;
+	width: 100%;
+}
+
+input[type=range]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	background-color: #267ab6;
+	border: none;
+	-webkit-border-radius: 50%;
+	border-radius: 50%;
+	cursor: pointer;
+	display: block;
+	height: 12px;
+	position: relative;
+	width: 12px;
+}
 
 @media only screen and (max-width: 768px) {
 	#audio_thumb:hover, #speed_ctrl:hover {

@@ -1,13 +1,28 @@
-import React, { memo, useState, useEffect, useRef, useContext } from 'react';
+import React, {
+  memo,
+  useState,
+  useEffect,
+  useRef,
+  useContext,
+  useCallback,
+} from 'react';
 import { AudioControls } from './AudioControls';
-import {TrackContext} from "../providers/TrackProvider"
-
+import { TrackContext } from '../providers/TrackProvider';
 
 export const AudioPlayer = memo(() => {
   // const {tracks,setTracks,trackIndex,setTrackIndex} =props;
-const { trackList, setTrackList, trackIndex, setTrackIndex,isPlaying, setIsPlaying,firstTimeReady, setFirstTimeReady } = useContext(TrackContext);
+  const {
+    trackList,
+    setTrackList,
+    trackIndex,
+    setTrackIndex,
+    isPlaying,
+    setIsPlaying,
+    firstTimeReady,
+    setFirstTimeReady,
+  } = useContext(TrackContext);
 
-  console.log(trackList)
+  console.log(trackList);
   // State
   const [trackProgress, setTrackProgress] = useState(0);
   // const [isPlaying, setIsPlaying] = useState(false);
@@ -21,7 +36,7 @@ const { trackList, setTrackList, trackIndex, setTrackIndex,isPlaying, setIsPlayi
   const audioRef = useRef(new Audio(audioSrc));
   const intervalRef = useRef();
   const isReady = useRef(false);
-  console.log("audioRef",audioRef);
+  console.log('audioRef', audioRef);
 
   // Destructure for conciseness
   const { duration } = audioRef.current;
@@ -29,6 +44,12 @@ const { trackList, setTrackList, trackIndex, setTrackIndex,isPlaying, setIsPlayi
   const currentPercentage = duration
     ? `${Math.floor((trackProgress / duration) * 100)}%`
     : '0%';
+
+  const currentPercentageBar = duration
+    ? `${Math.floor((trackProgress / duration / 2) * 100)}%`
+    : '0%';
+
+  const trackStyling = `-webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #c22c46), color-stop(${currentPercentage}, lightgray))`;
 
   const parseTime = (time) => {
     let returnTime;
@@ -53,6 +74,19 @@ const { trackList, setTrackList, trackIndex, setTrackIndex,isPlaying, setIsPlayi
         setTrackProgress(audioRef.current.currentTime);
       }
     }, [1000]);
+  };
+
+  const onScrub = (value) => {
+    clearInterval(intervalRef.current);
+    audioRef.current.currentTime = value;
+    setTrackProgress(audioRef.current.currentTime);
+  };
+
+  const onScrubEnd = () => {
+    if (!isPlaying) {
+      setIsPlaying(true);
+    }
+    startTimer();
   };
 
   const toPrevTrack = () => {
@@ -112,6 +146,27 @@ const { trackList, setTrackList, trackIndex, setTrackIndex,isPlaying, setIsPlayi
     audioRef.current.playbackRate = next_speed;
   };
 
+  const onClickVolumeUp = useCallback(() => {
+    if (0.9 < audioRef.current.volume) {
+      audioRef.current.volume = 1;
+    } else {
+      audioRef.current.volume += 0.1;
+    }
+  });
+
+  const onClickVolumeDown = useCallback(() => {
+    if (audioRef.current.volume < 0.1) {
+      audioRef.current.volume = 0;
+    } else {
+      audioRef.current.volume -= 0.1;
+    }
+  });
+
+  const onClickMute = () => {
+    console.log('audioRef.current.muted', audioRef.current.muted);
+    audioRef.current.muted = !audioRef.current.muted;
+  };
+
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
@@ -128,16 +183,14 @@ const { trackList, setTrackList, trackIndex, setTrackIndex,isPlaying, setIsPlayi
     setTrackProgress(audioRef.current.currentTime);
 
     if (isReady.current || firstTimeReady) {
-
       audioRef.current.play();
       setIsPlaying(true);
       startTimer();
     } else {
-
       // Set the isReady ref as true for the next pass
       isReady.current = true;
     }
-  }, [audioSrc,trackIndex]);
+  }, [audioSrc, trackIndex]);
 
   useEffect(() => {
     // Pause and clean up on unmount
@@ -160,20 +213,48 @@ const { trackList, setTrackList, trackIndex, setTrackIndex,isPlaying, setIsPlayi
             {title}
             <span className='sp-nodisp'></span>
           </div>
-          <div id='timebar'>
+          {/* <div id='timebar'>
             <div id='timebar-bg'>
               <div id='timebar-past' style={timeBarStyle}>
                 <div id='timebar-num'>{currentPercentage}</div>
               </div>
             </div>
+          </div> */}
+          <div id='timebar-range'>
+            <input
+              type='range'
+              value={trackProgress}
+              step='1'
+              min='0'
+              max={duration ? duration : `${duration}`}
+              className='progress'
+              onChange={(e) => onScrub(e.target.value)}
+              onMouseUp={onScrubEnd}
+              onKeyUp={onScrubEnd}
+              style={{ background: trackStyling }}
+            />
+            <div id='timebar-range-num' style={{ left: currentPercentageBar }}>
+              {currentPercentage}
+            </div>
           </div>
-          <div>
+          <div className='control_area'>
             <span id='time_disp'>
               {parseTime(audioRef.current.currentTime)} / {audioTime}
             </span>
             {/* <TimeControl currentTime={audioRef.current.currentTime} />
              */}
-            <p className='time_control_area'>
+            <div className='volume_control_area'>
+              <button className='volume_btn' onClick={onClickMute}>
+                {audioRef.current.muted ? '音量あり' : '音量なし'}
+              </button>
+              <button className='volume_btn' onClick={onClickVolumeDown}>
+                音量下げる
+              </button>
+              <button className='volume_btn' onClick={onClickVolumeUp}>
+                音量上げる
+              </button>
+            </div>
+            <div className='time_control_area'>
               <span>
                 <img
                   id='playback'
@@ -195,7 +276,7 @@ const { trackList, setTrackList, trackIndex, setTrackIndex,isPlaying, setIsPlayi
               <span id='speed_ctrl' onClick={onClickSpeedCtrl}>
                 {audioRef.current.playbackRate.toFixed(2)}x
               </span>
-            </p>
+            </div>
           </div>
         </div>
       </div>
