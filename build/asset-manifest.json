@@ -1,15 +1,26 @@
 {
   "files": {
+<<<<<<< HEAD
     "main.css": "./static/css/main.baa883b7.chunk.css",
     "main.js": "./static/js/main.d36208b4.chunk.js",
     "main.js.map": "./static/js/main.d36208b4.chunk.js.map",
+=======
+    "main.css": "./static/css/main.dbadc3cd.chunk.css",
+    "main.js": "./static/js/main.2a5972c2.chunk.js",
+    "main.js.map": "./static/js/main.2a5972c2.chunk.js.map",
+>>>>>>> 28ed95018f8862b36af1e1cf996e84a415653122
     "runtime-main.js": "./static/js/runtime-main.3776b316.js",
     "runtime-main.js.map": "./static/js/runtime-main.3776b316.js.map",
-    "static/js/2.78d7c816.chunk.js": "./static/js/2.78d7c816.chunk.js",
-    "static/js/2.78d7c816.chunk.js.map": "./static/js/2.78d7c816.chunk.js.map",
+    "static/js/2.1cebb027.chunk.js": "./static/js/2.1cebb027.chunk.js",
+    "static/js/2.1cebb027.chunk.js.map": "./static/js/2.1cebb027.chunk.js.map",
     "index.html": "./index.html",
+<<<<<<< HEAD
     "static/css/main.baa883b7.chunk.css.map": "./static/css/main.baa883b7.chunk.css.map",
     "static/js/2.78d7c816.chunk.js.LICENSE.txt": "./static/js/2.78d7c816.chunk.js.LICENSE.txt",
+=======
+    "static/css/main.dbadc3cd.chunk.css.map": "./static/css/main.dbadc3cd.chunk.css.map",
+    "static/js/2.1cebb027.chunk.js.LICENSE.txt": "./static/js/2.1cebb027.chunk.js.LICENSE.txt",
+>>>>>>> 28ed95018f8862b36af1e1cf996e84a415653122
     "static/media/20210416_111247_937_radiohistory_ep0514_「生類憐みの令」と「享保の改革」の間で政治を主導した新井白石.a19c8222.mp3": "./static/media/20210416_111247_937_radiohistory_ep0514_「生類憐みの令」と「享保の改革」の間で政治を主導した新井白石.a19c8222.mp3",
     "static/media/20210416_111301_234_radiohistory_ep0515_新井白石とシドッチ、鎖国日本で百年の時を経て輝いた西洋紀聞.99ab45b3.mp3": "./static/media/20210416_111301_234_radiohistory_ep0515_新井白石とシドッチ、鎖国日本で百年の時を経て輝いた西洋紀聞.99ab45b3.mp3",
     "static/media/20210424_105226_180_radiohistory_ep0516_「見えざる手」に隠されたアダム・スミスの経済へのアツい思い.8d1306e4.mp3": "./static/media/20210424_105226_180_radiohistory_ep0516_「見えざる手」に隠されたアダム・スミスの経済へのアツい思い.8d1306e4.mp3",
@@ -18,8 +29,14 @@
   },
   "entrypoints": [
     "static/js/runtime-main.3776b316.js",
+<<<<<<< HEAD
     "static/js/2.78d7c816.chunk.js",
     "static/css/main.baa883b7.chunk.css",
     "static/js/main.d36208b4.chunk.js"
+=======
+    "static/js/2.1cebb027.chunk.js",
+    "static/css/main.dbadc3cd.chunk.css",
+    "static/js/main.2a5972c2.chunk.js"
+>>>>>>> 28ed95018f8862b36af1e1cf996e84a415653122
   ]
 }

@@ -39,3 +39,9 @@ html {
 	line-height: 1;
 	text-transform: none;
 }
+
+button:disabled {
+	background: #ccc;
+	color: #666;
+	cursor: initial;
+}

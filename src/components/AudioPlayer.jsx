@@ -28,12 +28,12 @@ export const AudioPlayer = memo(() => {
   // const [isPlaying, setIsPlaying] = useState(false);
 
   // Destructure for conciseness
-  const { title, date, audioSrc, image, audioTime } = trackList[0];
-  console.log(audioSrc);
+  const { title, created_at, file_url, image, file_duration } = trackList[0];
+  console.log(file_url);
   console.log(trackIndex);
 
   // Refs
-  const audioRef = useRef(new Audio(audioSrc));
+  const audioRef = useRef(new Audio(file_url));
   const intervalRef = useRef();
   const isReady = useRef(false);
   console.log('audioRef', audioRef);
@@ -179,18 +179,30 @@ export const AudioPlayer = memo(() => {
   // Handles cleanup and setup when changing trackList
   useEffect(() => {
     audioRef.current.pause();
-    audioRef.current = new Audio(audioSrc);
+    audioRef.current = new Audio(file_url);
     setTrackProgress(audioRef.current.currentTime);
 
     if (isReady.current || firstTimeReady) {
+<<<<<<< HEAD
+=======
+console.log('レディー');
+>>>>>>> 28ed95018f8862b36af1e1cf996e84a415653122
       audioRef.current.play();
       setIsPlaying(true);
       startTimer();
     } else {
+<<<<<<< HEAD
       // Set the isReady ref as true for the next pass
       isReady.current = true;
     }
   }, [audioSrc, trackIndex]);
+=======
+console.log('NOTレディー');
+      // Set the isReady ref as true for the next pass
+      isReady.current = true;
+    }
+  }, [file_url,trackIndex]);
+>>>>>>> 28ed95018f8862b36af1e1cf996e84a415653122
 
   useEffect(() => {
     // Pause and clean up on unmount
@@ -208,7 +220,7 @@ export const AudioPlayer = memo(() => {
           <AudioControls isPlaying={isPlaying} onPlayClick={setIsPlaying} />
         </div>
         <div id='audio_desc'>
-          <div className='ep-date'>{date}</div>
+          <div className='ep-date'>{created_at}</div>
           <div className='ep-title'>
             {title}
             <span className='sp-nodisp'></span>
@@ -239,7 +251,7 @@ export const AudioPlayer = memo(() => {
           </div>
           <div className='control_area'>
             <span id='time_disp'>
-              {parseTime(audioRef.current.currentTime)} / {audioTime}
+              {parseTime(audioRef.current.currentTime)} / {parseTime(file_duration)}
             </span>
             {/* <TimeControl currentTime={audioRef.current.currentTime} />
              */}
