@@ -3,19 +3,33 @@ import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import playList from '../../../playList';
 import { TrackContext } from '../../../providers/TrackProvider';
-import { ApiFetch } from '../../../components/ApiFetch'
+import { ApiFetchEpisode } from '../../../components/ApiFetchEpisode';
 
 export const Episode_id = memo(() => {
   const { id } = useParams();
-  const { trackList, setTrackList, trackIndex, setTrackIndex, isPlaying, setIsPlaying, setFirstTimeReady } =
-    useContext(TrackContext);
+  const {
+    trackList,
+    setTrackList,
+    trackIndex,
+    setTrackIndex,
+    isPlaying,
+    setIsPlaying,
+    setFirstTimeReady,
+    channelInfo,
+    setChannelInfo,
+  } = useContext(TrackContext);
   console.log('page_id', id);
   console.log('trackList', trackList);
 
-  const currentItem = ApiFetch(id);
+  const { getEpisode,episode } = ApiFetchEpisode(id);
+
+
+  useEffect(() => getEpisode(), []);
+  const currentItem = episode;
 
   // const currentItem = playList.find((v) => v.id === id);
   console.log('currentItem', currentItem);
+  console.log('episode', episode);
 
   const onClickAdd = () => {
     const newItems = [...trackList, currentItem];
@@ -65,7 +79,7 @@ export const Episode_id = memo(() => {
         <div class='mvContainer__box__img'>
           <a href='#'>
             <img
-              src='https://storage.googleapis.com/propo-apollo.appspot.com/users/X4wgS1qpQSSvTW5FSTPgO9HyS8B2/channels/FEPdlmxIDrgN6wYk0EK0/images/radireki_thumbnail_540x540.jpg'
+              src={channelInfo.thumb}
               width='170'
               height='170'
               alt='ラジレキ 〜ラジオ歴史小話〜 '
@@ -75,20 +89,24 @@ export const Episode_id = memo(() => {
         <div class='mvContainerSmall__box__desc'>
           <h1 class='mvContainer__box__desc__title'>Episode{id}</h1>
           <p class='mvContainer__box__desc__detail'>{currentItem.title}</p>
-          <div className="mvContainer_btn">
+          <div className='mvContainer_btn'>
             {disabledFlg ? (
               <>
                 <button onClick={onClickAdd} className='mvAddBtn' disabled>
                   追加
                 </button>
-                <button onClick={onClickPlay} className='mvPlayBtn' disabled>再生中</button>
+                <button onClick={onClickPlay} className='mvPlayBtn' disabled>
+                  再生中
+                </button>
               </>
             ) : (
               <>
                 <button onClick={onClickAdd} className='mvAddBtn'>
                   追加
                 </button>
-                <button onClick={onClickPlay} className='mvPlayBtn'>再生</button>
+                <button onClick={onClickPlay} className='mvPlayBtn'>
+                  再生
+                </button>
               </>
             )}
           </div>

@@ -9,14 +9,28 @@ export const TrackProvider = (props) => {
   const [trackIndex, setTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [firstTimeReady, setFirstTimeReady] = useState(false);
+  const [channelInfo, setChannelInfo] = useState(false);
 
   // const value = {
   //   trackList, setTrackList, trackIndex, setTrackIndex
   // };
 
   return (
-    <TrackContext.Provider value={{trackList, setTrackList, trackIndex, setTrackIndex,isPlaying, setIsPlaying,firstTimeReady, setFirstTimeReady}}>
+    <TrackContext.Provider
+      value={{
+        trackList,
+        setTrackList,
+        trackIndex,
+        setTrackIndex,
+        isPlaying,
+        setIsPlaying,
+        firstTimeReady,
+        setFirstTimeReady,
+        channelInfo,
+        setChannelInfo,
+      }}
+    >
       {children}
     </TrackContext.Provider>
-  )
+  );
 }

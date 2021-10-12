@@ -20,7 +20,7 @@ export const AudioPlayer = memo(() => {
     isPlaying,
     setIsPlaying,
     firstTimeReady,
-    setFirstTimeReady,
+    channelInfo,
   } = useContext(TrackContext);
 
   console.log(trackList);
@@ -184,12 +184,12 @@ export const AudioPlayer = memo(() => {
     setTrackProgress(audioRef.current.currentTime);
 
     if (isReady.current || firstTimeReady) {
-      console.log('レディー');
+
       audioRef.current.play();
       setIsPlaying(true);
       startTimer();
     } else {
-      console.log('NOTレディー');
+
       // Set the isReady ref as true for the next pass
       isReady.current = true;
     }
@@ -207,7 +207,12 @@ export const AudioPlayer = memo(() => {
     <div className='App'>
       <div id='player' className='app'>
         <div id='audio_thumb'>
-          <img className='ep_img' src={image} width='160' height='160' />
+          <img
+            className='ep_img'
+            src={channelInfo.thumb}
+            width='160'
+            height='160'
+          />
           <AudioControls isPlaying={isPlaying} onPlayClick={setIsPlaying} />
         </div>
         <div id='audio_desc'>
